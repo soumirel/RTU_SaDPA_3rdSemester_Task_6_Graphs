@@ -2,19 +2,33 @@
 
 #include <iostream>
 
+
 using std::cout;
 using std::make_pair;
 
-
+//Конструктор
 Graph::Graph(){}
 
 
+//Деструктор
 Graph::~Graph(){}
 
 
+//Функция добавления ребра в граф - единственный способ для его создания
+// 
+//Алгоритм:
+//	-Есть обе вершины:
+//		-Они соединены:
+//			-Исключение
+//		-Иначе:
+//			-Соеденить ребором
+//	-Иначе:
+//		-Добавить недостающие вершины
+//		-Соеденить их
+//
 void Graph::addEdge(int firstID, int secondID, int weight)
 {
-	if (isInGraph(firstID) && isInGraph(secondID))
+	if (isVertexInGraph(firstID) && isVertexInGraph(secondID))
 	{
 		if (isVerticesConnected(firstID, secondID))
 		{
@@ -27,11 +41,11 @@ void Graph::addEdge(int firstID, int secondID, int weight)
 	}
 	else
 	{
-		if (!isInGraph(firstID))
+		if (!isVertexInGraph(firstID))
 		{
 			addVertex(firstID);
 		}
-		if (!isInGraph(secondID))
+		if (!isVertexInGraph(secondID))
 		{
 			addVertex(secondID);
 		}
@@ -40,7 +54,8 @@ void Graph::addEdge(int firstID, int secondID, int weight)
 }
 
 
-bool Graph::isInGraph(int ID)
+//Проверка на существование вершины в графе
+bool Graph::isVertexInGraph(int ID)
 {
 	if (getVertex(ID) != nullptr)
 	{
@@ -51,6 +66,7 @@ bool Graph::isInGraph(int ID)
 }
 
 
+//Проверка на соединенность двух вершин в графе
 bool Graph::isVerticesConnected(int firstID, int secondID)
 {
 	Vertex* firstVertex = getVertex(firstID);
@@ -68,6 +84,7 @@ bool Graph::isVerticesConnected(int firstID, int secondID)
 }
 
 
+//Вывод графа в виде списка вершин и их связей
 void Graph::print()
 {
 	for (auto vertex : vertices)
@@ -94,6 +111,7 @@ void Graph::print()
 }
 
 
+//Добавление вершины в граф
 void Graph::addVertex(int ID)
 {
 	Vertex* newVertex = new Vertex(ID);
@@ -101,6 +119,7 @@ void Graph::addVertex(int ID)
 }
 
 
+//Соединение двух вершин графа
 void Graph::connectVertices(int firstID, int secondID, int weight)
 {
 	Vertex* firstVertex = getVertex(firstID);
@@ -111,12 +130,14 @@ void Graph::connectVertices(int firstID, int secondID, int weight)
 }
 
 
+//Расчёт степени вершины графа
 int Graph::calculateVertexDegree(int ID)
 {
 	return getVertex(ID)->neighbours.size();
 }
 
 
+//Получение указателя на вершину по ее ID
 Graph::Vertex* Graph::getVertex(int ID)
 {
 	for (auto vertex : vertices)
@@ -131,6 +152,7 @@ Graph::Vertex* Graph::getVertex(int ID)
 }
 
 
+//Поиск кратчайшего пути алгоритмом Дейкстры
 void Graph::showShortestPath(int firstID, int secondID)
 {
 	Vertex* firstVertex = getVertex(firstID);

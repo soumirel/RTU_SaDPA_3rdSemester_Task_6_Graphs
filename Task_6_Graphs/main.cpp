@@ -36,27 +36,20 @@ void main()
 		{
 		case 0:
 		{
+			//Тест на 10ом графе из таблицы предложенных графов
 			Graph graph;
 			graph.addEdge(1, 2, 23);
 			graph.addEdge(1, 3, 12);
-			
 			graph.addEdge(2, 3, 25);
 			graph.addEdge(2, 5, 22);
 			graph.addEdge(2, 8, 35);
-			
 			graph.addEdge(3, 4, 18);
-
 			graph.addEdge(4, 6, 20);
-			
 			graph.addEdge(5, 6, 23);
 			graph.addEdge(5, 7, 14);
-
 			graph.addEdge(6, 7, 24);
-			
 			graph.addEdge(7, 8, 16);
 
-
-			
 			cout << "Граф в виде списка вершин и связей: \n";
 			graph.print();
 
